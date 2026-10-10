@@ -1,33 +1,26 @@
 ---
+import Layout from '../layouts/Layout.astro';
+
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import EventFlow from '../components/EventFlow.astro';
 import Features from '../components/Features.astro';
 import HowItWorks from '../components/HowItWorks.astro';
-
-import '../styles/global.css';
+import Footer from '../components/Footer.astro';
 ---
 
-<html lang="en">
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<Layout
+	title="Cuadrar — Event-Driven Systems Observability"
+	description="Understand how events move through distributed systems. Trace event lifecycles, uncover failures, and diagnose complex event-driven architectures."
+>
+	<Header />
 
-	<title>Cuadrar — Event-Driven Systems Observability</title>
+	<main>
+		<Hero />
+		<EventFlow />
+		<Features />
+		<HowItWorks />
+	</main>
 
-	<meta
-		name="description"
-		content="Cuadrar helps developers understand event flows, trace event lifecycles, and diagnose failures in distributed systems."
-	/>
-</head>
-
-<body>
-<Header />
-<main>
-	<Hero />
-	<EventFlow />
-	<Features />
-	<HowItWorks />
-</main>
-</body>
-</html>
+	<Footer />
+</Layout>
