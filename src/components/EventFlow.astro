@@ -1,0 +1,424 @@
+<section class="flow-section" id="how-it-works">
+    <div class="container">
+        <div class="section-heading">
+            <span class="eyebrow">EVENT FLOW EXPLORER</span>
+            <h2>From event to insight.</h2>
+            <p>
+                Follow an event through your services and identify where
+                processing succeeds or fails.
+            </p>
+        </div>
+
+        <div class="demo">
+            <div class="demo-toolbar">
+                <div class="demo-title">
+                    <span class="live-dot"></span>
+                    Live event simulation
+                </div>
+
+                <div class="scenario-switch">
+                    <button
+                            type="button"
+                            class="scenario active"
+                            data-scenario="healthy"
+                            aria-pressed="true"
+                    >
+                        Healthy flow
+                    </button>
+
+                    <button
+                            type="button"
+                            class="scenario"
+                            data-scenario="failed"
+                            aria-pressed="false"
+                    >
+                        Failed flow
+                    </button>
+                </div>
+            </div>
+
+            <div class="graph-container">
+                <svg
+                        class="graph"
+                        viewBox="0 0 800 390"
+                        role="img"
+                        aria-label="Event flow from Order Service through Kafka to Payment and Inventory services"
+                >
+                    <defs>
+                        <linearGradient id="flow-gradient" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#2dd4bf" />
+                            <stop offset="100%" stop-color="#5eead4" />
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Connections -->
+                    <g class="connections">
+                        <path id="path-order" d="M400 92 V150" />
+                        <path id="path-payment" d="M400 220 V255 H220 V285" />
+                        <path id="path-inventory" d="M400 220 V255 H580 V285" />
+                    </g>
+
+                    <!-- Animated event particles -->
+                    <circle class="particle particle-order" r="5">
+                        <animateMotion
+                                dur="1.5s"
+                                repeatCount="indefinite"
+                                path="M400 92 V150"
+                        />
+                    </circle>
+
+                    <circle class="particle particle-payment" r="5">
+                        <animateMotion
+                                dur="2s"
+                                repeatCount="indefinite"
+                                path="M400 220 V255 H220 V285"
+                        />
+                    </circle>
+
+                    <circle class="particle particle-inventory" r="5">
+                        <animateMotion
+                                dur="2s"
+                                repeatCount="indefinite"
+                                path="M400 220 V255 H580 V285"
+                        />
+                    </circle>
+
+                    <!-- Order Service -->
+                    <g class="node">
+                        <rect x="300" y="30" width="200" height="62" rx="10" />
+                        <text x="400" y="56" class="node-title">Order Service</text>
+                        <text x="400" y="75" class="node-subtitle">
+                            OrderCreated
+                        </text>
+                    </g>
+
+                    <!-- Kafka -->
+                    <g class="node broker">
+                        <rect x="300" y="150" width="200" height="70" rx="10" />
+                        <text x="400" y="180" class="node-title">Kafka</text>
+                        <text x="400" y="199" class="node-subtitle">
+                            Event Broker
+                        </text>
+                    </g>
+
+                    <!-- Payment Service -->
+                    <g class="node success-node">
+                        <rect x="120" y="285" width="200" height="70" rx="10" />
+                        <text x="220" y="313" class="node-title">
+                            Payment Service
+                        </text>
+                        <text x="220" y="334" class="node-status">
+                            ✓ Processed
+                        </text>
+                    </g>
+
+                    <!-- Inventory Service -->
+                    <g class="node inventory-node" id="inventory-node">
+                        <rect x="480" y="285" width="200" height="70" rx="10" />
+                        <text x="580" y="313" class="node-title">
+                            Inventory Service
+                        </text>
+                        <text
+                                x="580"
+                                y="334"
+                                class="node-status"
+                                id="inventory-status"
+                        >
+                            ✓ Processed
+                        </text>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="diagnostics" aria-live="polite">
+                <div class="diagnostics-indicator" id="diagnostics-indicator"></div>
+
+                <div>
+                    <strong id="diagnostics-title">
+                        All events processed successfully
+                    </strong>
+
+                    <p id="diagnostics-description">
+                        Both consumers completed processing without errors.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const buttons = document.querySelectorAll<HTMLButtonElement>(
+        '.scenario'
+    );
+
+    const inventoryNode = document.getElementById('inventory-node');
+    const inventoryStatus = document.getElementById('inventory-status');
+    const diagnosticsIndicator = document.getElementById(
+        'diagnostics-indicator'
+    );
+    const diagnosticsTitle = document.getElementById('diagnostics-title');
+    const diagnosticsDescription = document.getElementById(
+        'diagnostics-description'
+    );
+
+    buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const failed = button.dataset.scenario === 'failed';
+
+            buttons.forEach((item) => {
+                const active = item === button;
+
+                item.classList.toggle('active', active);
+                item.setAttribute('aria-pressed', String(active));
+            });
+
+            inventoryNode?.classList.toggle('failed', failed);
+            diagnosticsIndicator?.classList.toggle('failed', failed);
+
+            if (inventoryStatus) {
+                inventoryStatus.textContent = failed
+                    ? '✕ Processing failed'
+                    : '✓ Processed';
+            }
+
+            if (diagnosticsTitle) {
+                diagnosticsTitle.textContent = failed
+                    ? 'Event processing failed'
+                    : 'All events processed successfully';
+            }
+
+            if (diagnosticsDescription) {
+                diagnosticsDescription.textContent = failed
+                    ? 'Inventory Service failed while processing OrderCreated.'
+                    : 'Both consumers completed processing without errors.';
+            }
+        });
+    });
+</script>
+
+<style>
+    .flow-section {
+        padding: 80px 0 140px;
+    }
+
+    .section-heading {
+        text-align: center;
+        margin-bottom: 48px;
+    }
+
+    .eyebrow {
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 2px;
+    }
+
+    h2 {
+        margin: 18px 0;
+        font-size: clamp(32px, 4vw, 48px);
+        letter-spacing: -1.5px;
+    }
+
+    .section-heading p {
+        max-width: 560px;
+        margin: auto;
+        color: var(--muted);
+        line-height: 1.7;
+    }
+
+    .demo {
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: #111114;
+        overflow: hidden;
+    }
+
+    .demo-toolbar {
+        padding: 20px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .demo-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .live-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 12px var(--accent);
+    }
+
+    .scenario-switch {
+        display: flex;
+        padding: 4px;
+        gap: 4px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: #09090b;
+    }
+
+    .scenario {
+        border: none;
+        border-radius: 6px;
+        padding: 9px 14px;
+        color: var(--muted);
+        background: transparent;
+        cursor: pointer;
+        font-size: 12px;
+        transition: 0.2s;
+    }
+
+    .scenario.active {
+        background: #27272a;
+        color: var(--text);
+    }
+
+    .scenario:hover {
+        color: var(--text);
+    }
+
+    .graph-container {
+        padding: 30px;
+        overflow: hidden;
+    }
+
+    .graph {
+        width: 100%;
+        height: auto;
+        display: block;
+        max-height: 440px;
+    }
+
+    .connections path {
+        fill: none;
+        stroke: #52525b;
+        stroke-width: 2;
+        stroke-dasharray: 5 5;
+    }
+
+    .particle {
+        fill: var(--accent);
+        filter: drop-shadow(0 0 6px var(--accent));
+    }
+
+    .node rect {
+        fill: #18181b;
+        stroke: #3f3f46;
+        stroke-width: 1.5;
+        transition: stroke 0.3s, fill 0.3s;
+    }
+
+    .node-title {
+        fill: #fafafa;
+        font-size: 16px;
+        font-weight: 600;
+        text-anchor: middle;
+    }
+
+    .node-subtitle {
+        fill: #a1a1aa;
+        font-size: 12px;
+        text-anchor: middle;
+    }
+
+    .node-status {
+        fill: #2dd4bf;
+        font-size: 13px;
+        text-anchor: middle;
+    }
+
+    .success-node rect {
+        stroke: #2dd4bf;
+    }
+
+    .inventory-node rect {
+        stroke: #2dd4bf;
+    }
+
+    .inventory-node.failed rect {
+        stroke: #f87171;
+        fill: #2a1719;
+    }
+
+    .inventory-node.failed .node-status {
+        fill: #f87171;
+    }
+
+    .diagnostics {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 22px 26px;
+        border-top: 1px solid var(--border);
+        background: #0c0c0f;
+    }
+
+    .diagnostics-indicator {
+        width: 9px;
+        height: 9px;
+        margin-top: 5px;
+        border-radius: 50%;
+        background: var(--accent);
+        flex-shrink: 0;
+    }
+
+    .diagnostics-indicator.failed {
+        background: #f87171;
+    }
+
+    .diagnostics strong {
+        font-size: 14px;
+    }
+
+    .diagnostics p {
+        margin: 7px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 640px) {
+        .flow-section {
+            padding: 40px 0 90px;
+        }
+
+        .demo-toolbar {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .scenario-switch {
+            width: 100%;
+        }
+
+        .scenario {
+            flex: 1;
+        }
+
+        .graph-container {
+            padding: 10px;
+            overflow-x: auto;
+        }
+
+        .graph {
+            min-width: 500px;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .particle {
+            display: none;
+        }
+    }
+</style>

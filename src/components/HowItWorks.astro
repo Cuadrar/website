@@ -1,0 +1,231 @@
+<section class="architecture-section" id="architecture">
+    <div class="container">
+        <div class="section-heading">
+            <span class="eyebrow">HOW IT WORKS</span>
+
+            <h2>Observe. Connect. Understand.</h2>
+
+            <p>
+                Cuadrar collects observations about selected events,
+                connects related activity, and helps you investigate
+                how your distributed systems behave.
+            </p>
+        </div>
+
+        <div class="architecture">
+            <div class="step">
+                <div class="step-number">01</div>
+
+                <div class="step-icon">⌘</div>
+
+                <h3>Instrument</h3>
+
+                <p>
+                    Integrate lightweight agents and SDKs
+                    into your services.
+                </p>
+
+                <div class="step-label">AGENTS & SDKs</div>
+            </div>
+
+            <div class="connector">
+                <span>→</span>
+            </div>
+
+            <div class="step">
+                <div class="step-number">02</div>
+
+                <div class="step-icon">◇</div>
+
+                <h3>Correlate</h3>
+
+                <p>
+                    Connect observations across services
+                    and reconstruct event lifecycles.
+                </p>
+
+                <div class="step-label">CUADRAR SERVER</div>
+            </div>
+
+            <div class="connector">
+                <span>→</span>
+            </div>
+
+            <div class="step">
+                <div class="step-number">03</div>
+
+                <div class="step-icon">⌁</div>
+
+                <h3>Diagnose</h3>
+
+                <p>
+                    Explore event flows, investigate failures,
+                    and understand unexpected behavior.
+                </p>
+
+                <div class="step-label">EVENT EXPLORER</div>
+            </div>
+        </div>
+
+        <div class="architecture-note">
+            <span class="note-icon">◈</span>
+
+            <p>
+                Designed to work across different messaging technologies
+                without requiring full message payload collection.
+            </p>
+        </div>
+    </div>
+</section>
+
+<style>
+    .architecture-section {
+        padding: 100px 0 140px;
+        border-top: 1px solid var(--border);
+    }
+
+    .section-heading {
+        max-width: 720px;
+        margin-bottom: 64px;
+    }
+
+    .eyebrow {
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 2px;
+    }
+
+    h2 {
+        margin: 18px 0;
+        font-size: clamp(32px, 4vw, 48px);
+        letter-spacing: -1.5px;
+    }
+
+    .section-heading p {
+        color: var(--muted);
+        line-height: 1.8;
+    }
+
+    .architecture {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .step {
+        position: relative;
+        flex: 1;
+        min-height: 310px;
+        padding: 32px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--surface);
+    }
+
+    .step-number {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        color: #52525b;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .step-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 52px;
+        height: 52px;
+        margin-bottom: 28px;
+        border-radius: 12px;
+        background: rgba(45, 212, 191, 0.08);
+        color: var(--accent);
+        font-size: 28px;
+    }
+
+    h3 {
+        margin: 0 0 14px;
+        font-size: 20px;
+    }
+
+    .step p {
+        min-height: 75px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+    .step-label {
+        display: inline-block;
+        margin-top: 24px;
+        padding: 7px 10px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        color: var(--accent);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    .connector {
+        color: var(--accent);
+        font-size: 26px;
+    }
+
+    .architecture-note {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 40px;
+        padding: 20px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: rgba(45, 212, 191, 0.025);
+    }
+
+    .note-icon {
+        color: var(--accent);
+        font-size: 20px;
+    }
+
+    .architecture-note p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 900px) {
+        .architecture {
+            flex-direction: column;
+        }
+
+        .step {
+            width: 100%;
+            min-height: auto;
+        }
+
+        .step p {
+            min-height: auto;
+        }
+
+        .connector {
+            transform: rotate(90deg);
+        }
+    }
+
+    @media (max-width: 600px) {
+        .architecture-section {
+            padding: 70px 0 90px;
+        }
+
+        .step {
+            padding: 26px;
+        }
+    }
+</style>

@@ -1,0 +1,82 @@
+<header class="header">
+    <div class="container nav">
+        <a href="/" class="logo">
+            <span class="logo-icon">◈</span>
+            <span>cuadrar</span>
+        </a>
+
+        <nav>
+            <a href="#features">Features</a>
+            <a href="#architecture">How it works</a>            <a
+                    href="https://github.com/cuadrar"
+                    target="_blank"
+                    rel="noopener noreferrer"
+            >
+                GitHub ↗
+            </a>
+        </nav>
+    </div>
+</header>
+
+<style>
+    .header {
+        height: 76px;
+        border-bottom: 1px solid var(--border);
+        background: rgba(9, 9, 11, 0.8);
+        backdrop-filter: blur(16px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .nav {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: -0.7px;
+    }
+
+    .logo-icon {
+        color: var(--accent);
+        font-size: 26px;
+    }
+
+    nav {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+    }
+
+    nav a {
+        color: var(--muted);
+        font-size: 14px;
+        transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+        color: var(--text);
+    }
+
+    @media (max-width: 640px) {
+        nav {
+            gap: 16px;
+        }
+
+        nav a {
+            font-size: 12px;
+        }
+
+        nav a:first-child {
+            display: none;
+        }
+    }
+</style>

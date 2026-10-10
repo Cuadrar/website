@@ -1,0 +1,172 @@
+<section class="features-section" id="features">
+    <div class="container">
+        <div class="section-heading">
+            <span class="eyebrow">BUILT FOR EVENT-DRIVEN SYSTEMS</span>
+
+            <h2>Understand what happens between services.</h2>
+
+            <p>
+                Distributed systems are complex. Understanding how events
+                move through them shouldn't be.
+            </p>
+        </div>
+
+        <div class="features-grid">
+            <article class="feature">
+                <div class="icon">◇</div>
+                <h3>Event Lifecycle Tracking</h3>
+                <p>
+                    Follow events from publication to processing,
+                    including failures, retries, and redelivery.
+                </p>
+            </article>
+
+            <article class="feature">
+                <div class="icon">⌘</div>
+                <h3>Event Correlation</h3>
+                <p>
+                    Connect related events across services and
+                    reconstruct their execution paths.
+                </p>
+            </article>
+
+            <article class="feature">
+                <div class="icon">⌁</div>
+                <h3>Flow Visualization</h3>
+                <p>
+                    Explore event-driven architectures through
+                    interactive graphs and timelines.
+                </p>
+            </article>
+
+            <article class="feature">
+                <div class="icon">△</div>
+                <h3>Failure Diagnostics</h3>
+                <p>
+                    Identify failed processing attempts, unexpected
+                    behavior, and incomplete event flows.
+                </p>
+            </article>
+
+            <article class="feature">
+                <div class="icon">↗</div>
+                <h3>Transport Agnostic</h3>
+                <p>
+                    Designed for different messaging technologies,
+                    including Kafka, NATS, and RabbitMQ.
+                </p>
+            </article>
+
+            <article class="feature">
+                <div class="icon">◈</div>
+                <h3>Open Source</h3>
+                <p>
+                    Run Cuadrar in your own infrastructure,
+                    inspect the code, and contribute to its development.
+                </p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<style>
+    .features-section {
+        padding: 100px 0 140px;
+    }
+
+    .section-heading {
+        max-width: 720px;
+        margin-bottom: 56px;
+    }
+
+    .eyebrow {
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 2px;
+    }
+
+    h2 {
+        margin: 18px 0;
+        font-size: clamp(32px, 4vw, 48px);
+        letter-spacing: -1.5px;
+        line-height: 1.2;
+    }
+
+    .section-heading p {
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.8;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+
+    .feature {
+        padding: 32px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--surface);
+        transition:
+                border-color 0.25s ease,
+                transform 0.25s ease,
+                background 0.25s ease;
+    }
+
+    .feature:hover {
+        border-color: rgba(45, 212, 191, 0.4);
+        background: #19191d;
+        transform: translateY(-4px);
+    }
+
+    .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        margin-bottom: 26px;
+        border: 1px solid rgba(45, 212, 191, 0.2);
+        border-radius: 10px;
+        background: rgba(45, 212, 191, 0.08);
+        color: var(--accent);
+        font-size: 24px;
+    }
+
+    h3 {
+        margin: 0 0 14px;
+        font-size: 17px;
+        font-weight: 600;
+        letter-spacing: -0.4px;
+    }
+
+    .feature p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+    @media (max-width: 900px) {
+        .features-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 600px) {
+        .features-section {
+            padding: 70px 0 90px;
+        }
+
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .feature {
+            padding: 26px;
+        }
+    }
+</style>
